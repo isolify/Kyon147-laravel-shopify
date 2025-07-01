@@ -14,6 +14,14 @@ class CreateShopsTable extends Migration
      */
     public function up(): void
     {
+        if (! Schema::hasTable(Util::getShopsTable())) {
+            Schema::create(Util::getShopsTable(), function (Blueprint $table) {
+                $table->id();
+                $table->timestamps();
+            });
+        }
+
+        
         Schema::table(Util::getShopsTable(), function (Blueprint $table) {
             $table->boolean('shopify_grandfathered')->default(false);
             $table->string('shopify_namespace')->nullable(true)->default(null);
